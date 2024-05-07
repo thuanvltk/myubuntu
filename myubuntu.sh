@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # set -e
 set -o xtrace
 
@@ -81,7 +81,7 @@ sudo curl --output-dir /etc/bash_completion.d -O $GIT_CONTENT_URL/kubectx/comple
 ###################################################
 
 # reload .bashrc
-source $USER_HOME/.bashrc
+eval "$(cat $USER_HOME/.bashrc | tail -n +10)"
 
 echo "DONE!!!"
 # END
