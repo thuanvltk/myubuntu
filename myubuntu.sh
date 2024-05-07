@@ -16,12 +16,12 @@ then
 fi
 
 ################### ssh ##########################
-# ssh-agent cahce SSH credentials passphrase
-grep 'eval $(ssh-agent) && ssh-add ~/.ssh/id_rsa' $USER_HOME/.bashrc
-if [[ $? -ne 0 ]]
-then
-  echo 'eval $(ssh-agent) && ssh-add ~/.ssh/id_rsa' >> $USER_HOME/.bashrc
-fi
+# # ssh-agent cahce SSH credentials passphrase
+# grep 'eval $(ssh-agent) && ssh-add ~/.ssh/id_rsa' $USER_HOME/.bashrc
+# if [[ $? -ne 0 ]]
+# then
+#   echo 'eval $(ssh-agent) && ssh-add ~/.ssh/id_rsa' >> $USER_HOME/.bashrc
+# fi
 ##################################################
 
 ################### aliases ######################
