@@ -69,7 +69,7 @@ echo "$(whoami) ALL=(ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/sudo_without_
 ################### kubernetes ####################
 # kubectl
 sudo curl --output-dir /tmp -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" && \
-sudo mv /tmp/kubectl /usr/local/bin && sudo chmod u+x /usr/local/bin/kubectl
+sudo mv /tmp/kubectl /usr/bin && sudo chmod a+x /usr/bin/kubectl
 kubectl completion bash | sudo tee /etc/bash_completion.d/kubectl > /dev/null
 grep 'complete -o default -F __start_kubectl kube' $USER_HOME/.bashrc > /dev/null
 if [[ $? -ne 0 ]]
@@ -79,9 +79,9 @@ fi
 
 # kubectx & kubens
 sudo curl --output-dir /tmp -LO $GIT_CONTENT_URL/kubectx/kubectx.sh && \
-  sudo mv /tmp/kubectx.sh /usr/local/bin/kubectx && sudo chmod u+x /usr/local/bin/kubectx
+  sudo mv /tmp/kubectx.sh /usr/bin/kubectx && sudo chmod a+x /usr/bin/kubectx
 sudo curl --output-dir /tmp -LO $GIT_CONTENT_URL/kubectx/kubens.sh && \
-  sudo mv /tmp/kubens.sh /usr/local/bin/kubens && sudo chmod u+x /usr/local/bin/kubens
+  sudo mv /tmp/kubens.sh /usr/bin/kubens && sudo chmod a+x /usr/bin/kubens
 sudo curl --output-dir /tmp -LO $GIT_CONTENT_URL/kubectx/completion/kubectx.bash && \
   sudo mv /tmp/kubectx.bash /etc/bash_completion.d
 sudo curl --output-dir /tmp -LO $GIT_CONTENT_URL/kubectx/completion/kubens.bash && \
@@ -89,11 +89,11 @@ sudo curl --output-dir /tmp -LO $GIT_CONTENT_URL/kubectx/completion/kubens.bash 
 
 # kube-ps1
 sudo curl --output-dir /tmp -LO $GIT_CONTENT_URL/kube-ps1/kube-ps1.sh && \
-  sudo mv /tmp/kube-ps1.sh /usr/local/bin && sudo chmod u+x /usr/local/bin/kube-ps1.sh
-grep 'source /usr/local/bin/kube-ps1.sh' $USER_HOME/.bashrc > /dev/null
+  sudo mv /tmp/kube-ps1.sh /usr/bin && sudo chmod a+x /usr/bin/kube-ps1.sh
+grep 'source /usr/bin/kube-ps1.sh' $USER_HOME/.bashrc > /dev/null
 if [[ $? -ne 0 ]]
 then
-  echo 'source /usr/local/bin/kube-ps1.sh' >> $USER_HOME/.bashrc
+  echo 'source /usr/bin/kube-ps1.sh' >> $USER_HOME/.bashrc
 fi
 grep 'PS1="$(kube_ps1)' $USER_HOME/.bashrc > /dev/null
 if [[ $? -ne 0 ]]
