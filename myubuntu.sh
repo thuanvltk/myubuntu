@@ -29,14 +29,14 @@ fi
 ################### aliases ######################
 
 # sudo 
-grep 'alias sudo' $USER_HOME/.bashrc > /dev/null
+grep 'alias sudo=' $USER_HOME/.bashrc > /dev/null
 if [[ $? -ne 0 ]]
 then
   echo "alias sudo='sudo '" >> $USER_HOME/.bashrc
 fi
 
 # kubectl
-grep 'alias kube' $USER_HOME/.bashrc > /dev/null
+grep 'alias kube=' $USER_HOME/.bashrc > /dev/null
 if [[ $? -ne 0 ]]
 then
   echo "alias kube='kubectl'" >> $USER_HOME/.bashrc
@@ -77,6 +77,15 @@ sudo chmod a+x /usr/local/bin/kubectx
 sudo chmod a+x /usr/local/bin/kubens
 sudo curl --output-dir /etc/bash_completion.d -O $GIT_CONTENT_URL/kubectx/completion/kubectx.bash
 sudo curl --output-dir /etc/bash_completion.d -O $GIT_CONTENT_URL/kubectx/completion/kubens.bash
+
+# kube-ps1
+sudo curl --output-dir /usr/local/bin -o kube-ps1 $GIT_CONTENT_URL/kube-ps1/kube-ps1.sh
+sudo chmod a+x /usr/local/bin/kube-ps1
+grep 'PS1="$(kube_ps1)' $USER_HOME/.bashrc > /dev/null
+if [[ $? -ne 0 ]]
+then
+  echo 'PS1="$(kube_ps1) \u:\[\e[0;33m\]\w\[\e[0m\]\$ "' >> $USER_HOME/.bashrc
+fi
 
 ###################################################
 
