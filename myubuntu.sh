@@ -88,7 +88,7 @@ sudo curl --output-dir /etc/bash_completion.d -O $GIT_CONTENT_URL/kubectx/comple
 # kube-ps1
 sudo curl --output-dir /usr/local/bin -O $GIT_CONTENT_URL/kube-ps1/kube-ps1.sh
 sudo chmod a+x /usr/local/bin/kube-ps1.sh
-echo 'source /usr/local/bin/kube-ps1.sh' >> $USER_HOME/.bashrc > /dev/null
+echo 'source /usr/local/bin/kube-ps1.sh' >> $USER_HOME/.bashrc
 grep 'PS1="$(kube_ps1)' $USER_HOME/.bashrc > /dev/null
 if [[ $? -ne 0 ]]
 then
