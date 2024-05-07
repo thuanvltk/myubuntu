@@ -89,8 +89,5 @@ fi
 
 ###################################################
 
-# reload .bashrc
-eval "$(cat $USER_HOME/.bashrc | tail -n +10)"
-
 echo "DONE!!!"
 # END
