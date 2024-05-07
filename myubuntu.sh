@@ -63,7 +63,7 @@ fi
 
 ################### sudo ##########################
 # sudo without password
-echo "$(whoami) ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/sudo_without_password
+echo "$(whoami) ALL=(ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/sudo_without_password > /dev/null
 ###################################################
 
 ################### kubernetes ####################
