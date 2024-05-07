@@ -61,6 +61,11 @@ then
 fi
 ###################################################
 
+################### sudo ##########################
+# sudo without password
+echo "$(whoami) ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/sudo_without_password
+###################################################
+
 ################### kubernetes ####################
 # kubectl
 sudo curl --output-dir /usr/local/bin -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
