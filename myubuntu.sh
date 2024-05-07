@@ -60,6 +60,16 @@ fi
 
 ################### kubernetes ####################
 
+# kubectl
+sudo curl --output-dir /usr/local/bin -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+sudo chmod a+x /usr/local/bin/kubectl
+kubectl completion bash | sudo tee /etc/bash_completion.d/kubectl > /dev/null
+grep 'complete -o default -F __start_kubectl kube' $USER_HOME/.bashrc > /dev/null
+if [[ $? -ne 0 ]]
+then
+  echo "complete -o default -F __start_kubectl kube" >> $USER_HOME/.bashrc
+fi
+
 # kubectx & kubens
 sudo curl --output-dir /usr/local/bin -o kubectx $GIT_CONTENT_URL/kubectx/kubectx.sh
 sudo curl --output-dir /usr/local/bin -o kubens $GIT_CONTENT_URL/kubectx/kubens.sh
