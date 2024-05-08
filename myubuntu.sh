@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # set -e
-set -o xtrace
+[[ MYDEBUG == true ]] && set -o xtrace
 
 # Declare variables
 GIT_CONTENT_URL='https://raw.githubusercontent.com/thuanvltk/myubuntu/main'
@@ -26,17 +26,24 @@ fi
 
 ################### aliases ######################
 # sudo 
-grep 'alias sudo=' $USER_HOME/.bashrc > /dev/null
+grep 'alias sudo=' $USER_HOME/.bash_aliases > /dev/null
 if [[ $? -ne 0 ]]
 then
-  echo "alias sudo='sudo '" >> $USER_HOME/.bashrc
+  echo "alias sudo='sudo '" >> $USER_HOME/.bash_aliases
 fi
 
 # kubectl
-grep 'alias kube=' $USER_HOME/.bashrc > /dev/null
+grep 'alias kube=' $USER_HOME/.bash_aliases > /dev/null
 if [[ $? -ne 0 ]]
 then
-  echo "alias kube='kubectl'" >> $USER_HOME/.bashrc
+  echo "alias kube='kubectl'" >> $USER_HOME/.bash_aliases
+fi
+
+# source .bashrc
+grep 'alias brc=' $USER_HOME/.bash_aliases > /dev/null
+if [[ $? -ne 0 ]]
+then
+  echo "alias brc='source ~/.bashrc'" >> $USER_HOME/.bash_aliases
 fi
 ###################################################
 
