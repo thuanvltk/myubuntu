@@ -2,6 +2,11 @@
 # set -e
 [[ -n "$MYDEBUG" ]] && set -o xtrace
 
+# Install common packages
+sudo apt-get install -y \
+  unzip \
+  curl
+
 # Declare variables
 GIT_CONTENT_URL='https://raw.githubusercontent.com/thuanvltk/myubuntu/main'
 USER_HOME=$(getent passwd "$USER" | cut -d: -f6)
@@ -71,6 +76,13 @@ fi
 ################### sudo ##########################
 # sudo without password
 echo "$(whoami) ALL=(ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/sudo_without_password &> /dev/null
+###################################################
+
+################### awscli & azcli ################
+# awscli
+sudo curl --output-dir /tmp -LO "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" && \
+  sudo unzip -o /tmp/awscli-exe-linux-x86_64.zip -d /tmp && \
+  sudo /tmp/aws/install
 ###################################################
 
 ################### kubernetes ####################
