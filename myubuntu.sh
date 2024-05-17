@@ -5,7 +5,7 @@
 # Install common packages
 sudo apt-get install -y \
   unzip \
-  curl
+  curl &> /dev/null
 
 # Declare variables
 GIT_CONTENT_URL='https://raw.githubusercontent.com/thuanvltk/myubuntu/main'
