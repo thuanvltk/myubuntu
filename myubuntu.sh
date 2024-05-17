@@ -81,7 +81,7 @@ echo "$(whoami) ALL=(ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/sudo_without_
 ################### awscli & azcli ################
 # awscli
 sudo curl --output-dir /tmp -LO "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" && \
-  sudo unzip -o /tmp/awscli-exe-linux-x86_64.zip -d /tmp
+  sudo unzip -o /tmp/awscli-exe-linux-x86_64.zip -d /tmp &> /dev/null
 if [[ ! $(aws --version) ]]
 then
   sudo /tmp/aws/install
