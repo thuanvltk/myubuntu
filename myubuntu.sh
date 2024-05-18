@@ -96,7 +96,7 @@ else
 fi
 
 # azcli
-curl -sLS https://packages.microsoft.com/keys/microsoft.asc | sudo gpg --dearmor -o /etc/apt/keyrings/microsoft.gpg
+curl -sLS https://packages.microsoft.com/keys/microsoft.asc | sudo gpg --dearmor --yes -o /etc/apt/keyrings/microsoft.gpg
 sudo chmod go+r /etc/apt/keyrings/microsoft.gpg
 AZ_DIST=$(lsb_release -cs)
 echo "Types: deb
