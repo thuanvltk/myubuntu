@@ -5,6 +5,8 @@
 # Install common packages
 sudo apt-get update &> /dev/null
 sudo apt-get install -y \
+  python-is-python3 \
+  python3-pip \
   unzip \
   apt-transport-https \
   ca-certificates \
