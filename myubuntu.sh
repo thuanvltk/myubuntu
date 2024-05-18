@@ -120,7 +120,7 @@ fi
 
 # az account switcher
 pip install az-account-switcher --break-system-packages
-sudo ln -sf /home/"$USER_HOME"/.local/bin/az-switch /usr/local/bin/az-switch
+sudo ln -sf "$USER_HOME"/.local/bin/az-switch /usr/local/bin/az-switch
 
 ###################################################
 
