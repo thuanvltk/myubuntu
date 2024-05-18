@@ -117,6 +117,11 @@ if [[ ! $(grep 'source /usr/local/bin/az-ps1.sh' "$USER_HOME"/.bashrc &> /dev/nu
 then
   echo 'source /usr/local/bin/az-ps1.sh' >> "$USER_HOME"/.bashrc
 fi
+
+# az account switcher
+pip install az-account-switcher --break-system-packages
+sudo ln -sf /home/"$USER_HOME"/.local/bin/az-switch /usr/local/bin/az-switch
+
 ###################################################
 
 ################### kubernetes ####################
