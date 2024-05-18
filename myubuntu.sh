@@ -9,7 +9,7 @@ sudo apt-get install -y \
   apt-transport-https \
   ca-certificates \
   gnupg \
-  lsb-release
+  lsb-release \
   curl &> /dev/null
 sudo mkdir -p /etc/apt/keyrings
 
