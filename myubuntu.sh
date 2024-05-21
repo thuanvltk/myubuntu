@@ -90,7 +90,7 @@ echo "$(whoami) ALL=(ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/sudo_without_
 # awscli
 sudo curl --output-dir /tmp -LO "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" && \
   sudo unzip -o /tmp/awscli-exe-linux-x86_64.zip -d /tmp &> /dev/null
-if [[ ! $(aws --version) ]]
+if ! aws --version
 then
   sudo /tmp/aws/install
 else
@@ -113,7 +113,7 @@ sudo apt-get install -y azure-cli &> /dev/null
 # az-ps1
 sudo curl --output-dir /tmp -LO "$GIT_CONTENT_URL/az-ps1/az-ps1.sh" && \
   sudo mv /tmp/az-ps1.sh /usr/local/bin && sudo chmod a+x /usr/local/bin/az-ps1.sh
-if [[ ! $(grep 'source /usr/local/bin/az-ps1.sh' "$USER_HOME"/.bashrc &> /dev/null) ]]
+if ! grep 'source /usr/local/bin/az-ps1.sh' "$USER_HOME"/.bashrc &> /dev/null
 then
   echo 'source /usr/local/bin/az-ps1.sh' >> "$USER_HOME"/.bashrc
 fi
@@ -170,7 +170,7 @@ helm completion bash | sudo tee /etc/bash_completion.d/helm &> /dev/null
 ###################################################
 
 ################### set PS1 #######################
-if [[ ! $(grep 'PS1="$(az_ps1) $(kube_ps1)' "$USER_HOME"/.bashrc &> /dev/null) ]]
+if ! grep 'PS1="$(az_ps1) $(kube_ps1)' "$USER_HOME"/.bashrc &> /dev/null
 then
   echo 'PS1="$(az_ps1) $(kube_ps1) \u:\[\e[0;33m\]\w\[\e[0m\]\$ "' >> "$USER_HOME"/.bashrc
 fi
