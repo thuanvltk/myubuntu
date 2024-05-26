@@ -16,7 +16,7 @@ az_ps1()
   AZ_SUBSCRIPTION=$(az account show 2> /dev/null | jq -r '.name')
   if [[ -n "$AZ_SUBSCRIPTION" ]]
   then
-    echo -e "(${YELLOW}$SUBSCRIPTION_SYMBOL${CLEAR}$AZ_SUBSCRIPTION)"
+    echo -e "(${YELLOW}$SUBSCRIPTION_SYMBOL${CLEAR}|$AZ_SUBSCRIPTION)"
   else
     echo "(${YELLOW}$SUBSCRIPTION_SYMBOL${CLEAR})"
   fi
