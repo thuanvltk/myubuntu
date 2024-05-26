@@ -9,7 +9,7 @@ CYAN='\033[0;36m'
 # Clear the color after that
 CLEAR='\033[0m'
 # Symbol
-SUBSCRIPTION_SYMBOL="$'\U1F511'"
+SUBSCRIPTION_SYMBOL=$'\U1F511'
 
 az_ps1()
 {
