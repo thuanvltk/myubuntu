@@ -8,14 +8,16 @@ MAGENTA='\033[0;35m'
 CYAN='\033[0;36m'
 # Clear the color after that
 CLEAR='\033[0m'
+# Symbol
+SUBSCRIPTION_SYMBOL="$'\U1F511'"
 
 az_ps1()
 {
   AZ_SUBSCRIPTION=$(az account show 2> /dev/null | jq -r '.name')
   if [[ -n "$AZ_SUBSCRIPTION" ]]
   then
-    echo -e "(${YELLOW}🔑${CLEAR}$AZ_SUBSCRIPTION)"
+    echo -e "(${YELLOW}$SUBSCRIPTION_SYMBOL${CLEAR}$AZ_SUBSCRIPTION)"
   else
-    echo "(🔑)"
+    echo "(${YELLOW}$SUBSCRIPTION_SYMBOL${CLEAR})"
   fi
 }
