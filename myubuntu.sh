@@ -86,7 +86,7 @@ fi
 echo "$(whoami) ALL=(ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/sudo_without_password &> /dev/null
 ###################################################
 
-################### awscli & azcli ################
+################### aws & azure ###################
 # awscli
 sudo curl --output-dir /tmp -LO "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" && \
   sudo unzip -o /tmp/awscli-exe-linux-x86_64.zip -d /tmp &> /dev/null
@@ -121,7 +121,14 @@ fi
 # az account switcher
 pip install az-account-switcher --break-system-packages
 sudo ln -sf "$USER_HOME"/.local/bin/az-switch /usr/local/bin/az-switch
+###################################################
 
+################### terraform #####################
+# tfenv
+sudo curl --output-dir /tmp -LO "$GIT_CONTENT_URL/tfenv/tfenv.sh" && \
+  sudo mv /tmp/tfenv.sh /usr/local/bin/tfenv && \
+  sudo chmod a+x /usr/local/bin/tfenv
+tfenv install latest
 ###################################################
 
 ################### kubernetes ####################
@@ -152,7 +159,8 @@ sudo curl --output-dir /tmp -LO "$GIT_CONTENT_URL/kubectx/completion/kubens.bash
 
 # kube-ps1
 sudo curl --output-dir /tmp -LO "$GIT_CONTENT_URL/kube-ps1/kube-ps1.sh" && \
-  sudo mv /tmp/kube-ps1.sh /usr/local/bin && sudo chmod a+x /usr/local/bin/kube-ps1.sh
+  sudo mv /tmp/kube-ps1.sh /usr/local/bin && \
+  sudo chmod a+x /usr/local/bin/kube-ps1.sh
 grep 'source /usr/local/bin/kube-ps1.sh' "$USER_HOME"/.bashrc &> /dev/null
 if [[ $? -ne 0 ]]
 then
