@@ -131,7 +131,7 @@ sudo mkdir -p /tmp/tfenv && \
 sudo mv /tmp/tfenv/v3.0 /usr/local/tfenv && \
   sudo chmod -R a+x /usr/local/tfenv && \
   sudo ln -s /usr/local/tfenv/bin/* /usr/local/bin
-tfenv install latest
+sudo tfenv install latest
 ###################################################
 
 ################### kubernetes ####################
