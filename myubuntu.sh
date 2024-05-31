@@ -128,8 +128,9 @@ sudo ln -sf "$USER_HOME"/.local/bin/az-switch /usr/local/bin/az-switch
 sudo mkdir -p /tmp/tfenv && \
   sudo curl --output-dir /tmp/tfenv -LO "$GIT_CONTENT_URL/tfenv/v3.0.zip" && \
   sudo unzip -o /tmp/tfenv/v3.0.zip -d /tmp/tfenv &> /dev/null
-sudo cp -r /tmp/tfenv/v3.0 /usr/local/bin/tfenv && \
-  sudo ln -s /usr/local/bin/tfenv/* /usr/local/bin
+sudo mv /tmp/tfenv/v3.0 /usr/local/tfenv && \
+  sudo chmod -R a+x /usr/local/tfenv && \
+  sudo ln -s /usr/local/tfenv/bin/* /usr/local/bin
 tfenv install latest
 ###################################################
 
