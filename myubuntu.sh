@@ -181,9 +181,9 @@ helm completion bash | sudo tee /etc/bash_completion.d/helm &> /dev/null
 ###################################################
 
 ################### set PS1 #######################
-if ! grep 'PS1="$(az_ps1) $(kube_ps1)' "$USER_HOME"/.bashrc &> /dev/null
+if ! grep 'PS1="$(az_ps1)$(kube_ps1)' "$USER_HOME"/.bashrc &> /dev/null
 then
-  echo 'PS1="$(az_ps1) $(kube_ps1) \u:\[\e[0;33m\]\w\[\e[0m\]\$ "' >> "$USER_HOME"/.bashrc
+  echo 'PS1="$(az_ps1)$(kube_ps1)\u:\[\e[0;33m\]\w\[\e[0m\]\$ "' >> "$USER_HOME"/.bashrc
 fi
 ###################################################
 
