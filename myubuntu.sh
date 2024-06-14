@@ -18,14 +18,15 @@ sudo mkdir -p /etc/apt/keyrings
 # Declare variables
 GIT_CONTENT_URL='https://raw.githubusercontent.com/thuanvltk/myubuntu/main'
 USER_HOME=$(getent passwd "$USER" | cut -d: -f6)
+BASHRC="$USER_HOME"/.bashrc
 
 # Backup .bashrc before editting
-cp "$USER_HOME"/.bashrc "$USER_HOME"/.bashrc.bk.$(date +"%m_%d_%Y-%H_%M_%S")
+cp "$BASHRC" "$BASHRC".bk.$(date +"%m_%d_%Y-%H_%M_%S")
 
-grep 'My custom script' "$USER_HOME"/.bashrc &> /dev/null
+grep 'My custom script' "$BASHRC" &> /dev/null
 if [[ $? -ne 0 ]]
 then
-  printf "\n### My custom script ###\n\n" >> "$USER_HOME"/.bashrc
+  printf "\n### My custom script ###\n\n" >> "$BASHRC"
 fi
 
 ################### ssh ##########################
@@ -96,6 +97,10 @@ then
 else
   sudo /tmp/aws/install --update
 fi
+if ! grep "complete -C '/usr/local/bin/aws_completer' aws" "$BASHRC" &> /dev/null
+then
+  echo "complete -C '/usr/local/bin/aws_completer' aws" >> "$BASHRC"
+fi
 
 # azcli
 curl -sLS https://packages.microsoft.com/keys/microsoft.asc | sudo gpg --dearmor --yes -o /etc/apt/keyrings/microsoft.gpg
@@ -113,9 +118,9 @@ sudo apt-get install -y azure-cli &> /dev/null
 # az-ps1
 sudo curl --output-dir /tmp -LO "$GIT_CONTENT_URL/az-ps1/az-ps1.sh" && \
   sudo mv /tmp/az-ps1.sh /usr/local/bin && sudo chmod a+x /usr/local/bin/az-ps1.sh
-if ! grep 'source /usr/local/bin/az-ps1.sh' "$USER_HOME"/.bashrc &> /dev/null
+if ! grep 'source /usr/local/bin/az-ps1.sh' "$BASHRC" &> /dev/null
 then
-  echo 'source /usr/local/bin/az-ps1.sh' >> "$USER_HOME"/.bashrc
+  echo 'source /usr/local/bin/az-ps1.sh' >> "$BASHRC"
 fi
 
 # az account switcher
@@ -139,10 +144,10 @@ sudo tfenv install latest
 sudo curl --output-dir /tmp -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" && \
   sudo mv /tmp/kubectl /usr/local/bin && sudo chmod a+x /usr/local/bin/kubectl
 kubectl completion bash | sudo tee /etc/bash_completion.d/kubectl &> /dev/null
-grep 'complete -o default -F __start_kubectl kube' "$USER_HOME"/.bashrc &> /dev/null
+grep 'complete -o default -F __start_kubectl kube' "$BASHRC" &> /dev/null
 if [[ $? -ne 0 ]]
 then
-  echo "complete -o default -F __start_kubectl kube" >> "$USER_HOME"/.bashrc
+  echo "complete -o default -F __start_kubectl kube" >> "$BASHRC"
 fi
 
 # kubectx & kubens
@@ -164,10 +169,10 @@ sudo curl --output-dir /tmp -LO "$GIT_CONTENT_URL/kubectx/completion/kubens.bash
 sudo curl --output-dir /tmp -LO "$GIT_CONTENT_URL/kube-ps1/kube-ps1.sh" && \
   sudo mv /tmp/kube-ps1.sh /usr/local/bin && \
   sudo chmod a+x /usr/local/bin/kube-ps1.sh
-grep 'source /usr/local/bin/kube-ps1.sh' "$USER_HOME"/.bashrc &> /dev/null
+grep 'source /usr/local/bin/kube-ps1.sh' "$BASHRC" &> /dev/null
 if [[ $? -ne 0 ]]
 then
-  echo 'source /usr/local/bin/kube-ps1.sh' >> "$USER_HOME"/.bashrc
+  echo 'source /usr/local/bin/kube-ps1.sh' >> "$BASHRC"
 fi
 
 # helm
@@ -181,9 +186,9 @@ helm completion bash | sudo tee /etc/bash_completion.d/helm &> /dev/null
 ###################################################
 
 ################### set PS1 #######################
-if ! grep 'PS1="$(az_ps1)$(kube_ps1)' "$USER_HOME"/.bashrc &> /dev/null
+if ! grep 'PS1="$(az_ps1)$(kube_ps1)' "$BASHRC" &> /dev/null
 then
-  echo 'PS1="$(az_ps1)$(kube_ps1)\u:\[\e[0;33m\]\w\[\e[0m\]\$ "' >> "$USER_HOME"/.bashrc
+  echo 'PS1="$(az_ps1)$(kube_ps1)\u:\[\e[0;33m\]\w\[\e[0m\]\$ "' >> "$BASHRC"
 fi
 ###################################################
 
