@@ -115,6 +115,18 @@ Signed-by: /etc/apt/keyrings/microsoft.gpg" | sudo tee /etc/apt/sources.list.d/a
 sudo apt-get update &> /dev/null
 sudo apt-get install -y azure-cli &> /dev/null
 
+# aws-ps1
+sudo curl --output-dir /tmp -LO "$GIT_CONTENT_URL/aws-ps1/aws-ps1.sh" && \
+  sudo mv /tmp/aws-ps1.sh /usr/local/bin && sudo chmod a+x /usr/local/bin/aws-ps1.sh
+if ! grep 'source /usr/local/bin/aws-ps1.sh' "$BASHRC" &> /dev/null
+then
+  echo 'source /usr/local/bin/aws-ps1.sh' >> "$BASHRC"
+fi
+if ! grep 'export AWS_PROFILE' "$BASHRC" &> /dev/null
+then
+  echo 'export AWS_PROFILE="default"' >> "$BASHRC"
+fi
+
 # az-ps1
 sudo curl --output-dir /tmp -LO "$GIT_CONTENT_URL/az-ps1/az-ps1.sh" && \
   sudo mv /tmp/az-ps1.sh /usr/local/bin && sudo chmod a+x /usr/local/bin/az-ps1.sh
@@ -186,9 +198,9 @@ helm completion bash | sudo tee /etc/bash_completion.d/helm &> /dev/null
 ###################################################
 
 ################### set PS1 #######################
-if ! grep 'PS1="$(az_ps1)$(kube_ps1)' "$BASHRC" &> /dev/null
+if ! grep 'PS1="$(aws_ps1)$(az_ps1)$(kube_ps1)' "$BASHRC" &> /dev/null
 then
-  echo 'PS1="$(az_ps1)$(kube_ps1)\u:\[\e[0;33m\]\w\[\e[0m\]\$ "' >> "$BASHRC"
+  echo 'PS1="$(aws_ps1)$(az_ps1)$(kube_ps1)\u:\[\e[0;33m\]\w\[\e[0m\]\$ "' >> "$BASHRC"
 fi
 ###################################################
 
