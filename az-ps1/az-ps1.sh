@@ -14,7 +14,7 @@ SUBSCRIPTION_SYMBOL=$'\U1F511'
 az_ps1()
 {
   AZ_SUBSCRIPTION=$(az account show 2> /dev/null | jq -r '.name')
-  echo -e "(${YELLOW}$SUBSCRIPTION_SYMBOL${CLEAR}|$AZ_SUBSCRIPTION)"
+  echo -e "(${YELLOW}$SUBSCRIPTION_SYMBOL${CLEAR}|${BLUE}$AZ_SUBSCRIPTION)${CLEAR}"
   # if [[ -n "$AZ_SUBSCRIPTION" ]]
   # then
   #   echo -e "(${YELLOW}$SUBSCRIPTION_SYMBOL${CLEAR}|$AZ_SUBSCRIPTION)"
