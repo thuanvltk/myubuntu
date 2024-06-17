@@ -8,16 +8,27 @@ MAGENTA='\033[0;35m'
 CYAN='\033[0;36m'
 # Clear the color after that
 CLEAR='\033[0m'
-# Symbol
-SUBSCRIPTION_SYMBOL=$'\U1F511'
 
-az_ps1()
-{
-  AZ_SUBSCRIPTION=$(az account show 2> /dev/null | jq -r '.name')
-  if [[ -n "$AZ_SUBSCRIPTION" ]]
+aws-switch(){
+  PROFILE_ARR=($(aws configure list-profiles))
+  for i in "${!PROFILE_ARR[@]}"
+  do
+    if [[ "${PROFILE_ARR[$i]}" == "$AWS_PROFILE" ]]
+    then
+      echo -e "* [$((i+1))]${YELLOW} ${PROFILE_ARR[$i]}${CLEAR}"
+    else
+      echo "  [$((i+1))] ${PROFILE_ARR[$i]}"
+    fi
+  done
+  echo -n "Select AWS Profile to switch: "
+  read -r AWS_PROFILE_SELECTED
+  AWS_PROFILE_NUMBER=$((AWS_PROFILE_SELECTED-1))
+
+  if [[ "${PROFILE_ARR[$AWS_PROFILE_NUMBER]}" != "" ]]
   then
-    echo -e "(${YELLOW}$SUBSCRIPTION_SYMBOL${CLEAR}|$AZ_SUBSCRIPTION)"
+    export AWS_PROFILE="${PROFILE_ARR[$AWS_PROFILE_NUMBER]}"
+    echo "Active: $AWS_PROFILE"
   else
-    echo "(${YELLOW}$SUBSCRIPTION_SYMBOL${CLEAR})"
+    echo "Value not in range! Not changing AWS Profile."
   fi
 }

@@ -122,10 +122,10 @@ if ! grep 'source /usr/local/bin/aws-ps1.sh' "$BASHRC" &> /dev/null
 then
   echo 'source /usr/local/bin/aws-ps1.sh' >> "$BASHRC"
 fi
-if ! grep 'export AWS_PROFILE' "$BASHRC" &> /dev/null
-then
-  echo 'export AWS_PROFILE="default"' >> "$BASHRC"
-fi
+# if ! grep 'export AWS_PROFILE' "$BASHRC" &> /dev/null
+# then
+#   echo 'export AWS_PROFILE="default"' >> "$BASHRC"
+# fi
 
 # az-ps1
 sudo curl --output-dir /tmp -LO "$GIT_CONTENT_URL/az-ps1/az-ps1.sh" && \
@@ -133,6 +133,14 @@ sudo curl --output-dir /tmp -LO "$GIT_CONTENT_URL/az-ps1/az-ps1.sh" && \
 if ! grep 'source /usr/local/bin/az-ps1.sh' "$BASHRC" &> /dev/null
 then
   echo 'source /usr/local/bin/az-ps1.sh' >> "$BASHRC"
+fi
+
+# aws profile switcher
+sudo curl --output-dir /tmp -LO "$GIT_CONTENT_URL/aws-switch/aws-switch.sh" && \
+  sudo mv /tmp/aws-switch.sh /usr/local/bin && sudo chmod a+x /usr/local/bin/aws-switch.sh
+if ! grep 'source /usr/local/bin/aws-switch.sh' "$BASHRC" &> /dev/null
+then
+  echo 'source /usr/local/bin/aws-switch.sh' >> "$BASHRC"
 fi
 
 # az account switcher

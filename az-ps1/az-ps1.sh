@@ -9,9 +9,16 @@ CYAN='\033[0;36m'
 # Clear the color after that
 CLEAR='\033[0m'
 # Symbol
-IAM_ROLE_SYMBOL=$'\U1F512'
+SUBSCRIPTION_SYMBOL=$'\U1F511'
 
-aws_ps1()
+az_ps1()
 {
-  echo -e "(${YELLOW}$IAM_ROLE_SYMBOL${CLEAR}|$AWS_PROFILE)"
+  AZ_SUBSCRIPTION=$(az account show 2> /dev/null | jq -r '.name')
+  echo -e "(${YELLOW}$SUBSCRIPTION_SYMBOL${CLEAR}|$AZ_SUBSCRIPTION)"
+  # if [[ -n "$AZ_SUBSCRIPTION" ]]
+  # then
+  #   echo -e "(${YELLOW}$SUBSCRIPTION_SYMBOL${CLEAR}|$AZ_SUBSCRIPTION)"
+  # else
+  #   echo "(${YELLOW}$SUBSCRIPTION_SYMBOL${CLEAR})"
+  # fi
 }
