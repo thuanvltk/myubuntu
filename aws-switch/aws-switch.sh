@@ -11,6 +11,7 @@ CLEAR='\033[0m'
 
 aws-switch(){
   PROFILE_ARR=($(aws configure list-profiles))
+
   for i in "${!PROFILE_ARR[@]}"
   do
     if [[ "${PROFILE_ARR[$i]}" == "$AWS_PROFILE" ]]
@@ -20,13 +21,24 @@ aws-switch(){
       echo "  [$((i+1))] ${PROFILE_ARR[$i]}"
     fi
   done
-  echo -n "Select AWS Profile to switch: "
-  read -r AWS_PROFILE_SELECTED
+
+  while true; do
+    echo -n "Select AWS Profile to switch: "
+    read -r AWS_PROFILE_SELECTED
+    if [[ "$AWS_PROFILE_SELECTED" =~ ^[0-9]+$ ]]; then
+      break
+    else
+      echo "The input is not a valid integer."
+    fi
+  done
+
   AWS_PROFILE_NUMBER=$((AWS_PROFILE_SELECTED-1))
 
   if [[ "${PROFILE_ARR[$AWS_PROFILE_NUMBER]}" != "" ]]
   then
     export AWS_PROFILE="${PROFILE_ARR[$AWS_PROFILE_NUMBER]}"
+    sed -i "/^AWS_PROFILE=/d" ~/.bashrc
+    echo "AWS_PROFILE=\"${PROFILE_ARR[$AWS_PROFILE_NUMBER]}\"" >> ~/.bashrc
     echo "Active: $AWS_PROFILE"
   else
     echo "Value not in range! Not changing AWS Profile."
