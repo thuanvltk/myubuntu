@@ -102,6 +102,22 @@ then
   echo "complete -C '/usr/local/bin/aws_completer' aws" >> "$BASHRC"
 fi
 
+# aws profile switcher
+sudo curl --output-dir /tmp -LO "$GIT_CONTENT_URL/aws-switch/aws-switch.sh" && \
+  sudo mv /tmp/aws-switch.sh /usr/local/bin && sudo chmod a+x /usr/local/bin/aws-switch.sh
+if ! grep 'source /usr/local/bin/aws-switch.sh' "$BASHRC" &> /dev/null
+then
+  echo 'source /usr/local/bin/aws-switch.sh' >> "$BASHRC"
+fi
+
+# aws-ps1
+sudo curl --output-dir /tmp -LO "$GIT_CONTENT_URL/aws-ps1/aws-ps1.sh" && \
+  sudo mv /tmp/aws-ps1.sh /usr/local/bin && sudo chmod a+x /usr/local/bin/aws-ps1.sh
+if ! grep 'source /usr/local/bin/aws-ps1.sh' "$BASHRC" &> /dev/null
+then
+  echo 'source /usr/local/bin/aws-ps1.sh' >> "$BASHRC"
+fi
+
 # azcli
 curl -sLS https://packages.microsoft.com/keys/microsoft.asc | sudo gpg --dearmor --yes -o /etc/apt/keyrings/microsoft.gpg
 sudo chmod go+r /etc/apt/keyrings/microsoft.gpg
@@ -115,17 +131,9 @@ Signed-by: /etc/apt/keyrings/microsoft.gpg" | sudo tee /etc/apt/sources.list.d/a
 sudo apt-get update &> /dev/null
 sudo apt-get install -y azure-cli &> /dev/null
 
-# aws-ps1
-sudo curl --output-dir /tmp -LO "$GIT_CONTENT_URL/aws-ps1/aws-ps1.sh" && \
-  sudo mv /tmp/aws-ps1.sh /usr/local/bin && sudo chmod a+x /usr/local/bin/aws-ps1.sh
-if ! grep 'source /usr/local/bin/aws-ps1.sh' "$BASHRC" &> /dev/null
-then
-  echo 'source /usr/local/bin/aws-ps1.sh' >> "$BASHRC"
-fi
-# if ! grep 'export AWS_PROFILE' "$BASHRC" &> /dev/null
-# then
-#   echo 'export AWS_PROFILE="default"' >> "$BASHRC"
-# fi
+# az account switcher
+pip install az-account-switcher --break-system-packages
+sudo ln -sf "$USER_HOME"/.local/bin/az-switch /usr/local/bin/az-switch
 
 # az-ps1
 sudo curl --output-dir /tmp -LO "$GIT_CONTENT_URL/az-ps1/az-ps1.sh" && \
@@ -134,18 +142,6 @@ if ! grep 'source /usr/local/bin/az-ps1.sh' "$BASHRC" &> /dev/null
 then
   echo 'source /usr/local/bin/az-ps1.sh' >> "$BASHRC"
 fi
-
-# aws profile switcher
-sudo curl --output-dir /tmp -LO "$GIT_CONTENT_URL/aws-switch/aws-switch.sh" && \
-  sudo mv /tmp/aws-switch.sh /usr/local/bin && sudo chmod a+x /usr/local/bin/aws-switch.sh
-if ! grep 'source /usr/local/bin/aws-switch.sh' "$BASHRC" &> /dev/null
-then
-  echo 'source /usr/local/bin/aws-switch.sh' >> "$BASHRC"
-fi
-
-# az account switcher
-pip install az-account-switcher --break-system-packages
-sudo ln -sf "$USER_HOME"/.local/bin/az-switch /usr/local/bin/az-switch
 ###################################################
 
 ################### terraform #####################
@@ -206,9 +202,9 @@ helm completion bash | sudo tee /etc/bash_completion.d/helm &> /dev/null
 ###################################################
 
 ################### set PS1 #######################
-if ! grep 'PS1="\$(aws_ps1)$(az_ps1)$(kube_ps1)' "$BASHRC" &> /dev/null
+if ! grep 'PS1="\[\e[0;33m\]\$(aws_ps1)\[\e[0m\]\$(kube_ps1)' "$BASHRC" &> /dev/null
 then
-  echo 'PS1="\$(aws_ps1)$(az_ps1)$(kube_ps1)\u:\[\e[0;33m\]\w\[\e[0m\]\$ "' >> "$BASHRC"
+  echo 'PS1="\[\e[0;33m\]\$(aws_ps1)\[\e[0m\]\$(kube_ps1)\u:\[\e[0;33m\]\w\[\e[0m\]\$ "' >> "$BASHRC"
   # PS1="\$VAR" To make PS1 dynamically reflect the current value of an environment variable
 fi
 ###################################################

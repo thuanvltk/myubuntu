@@ -13,5 +13,5 @@ IAM_SYMBOL=$'\U1F512'
 
 aws_ps1()
 {
-  echo -e "(${YELLOW}$IAM_SYMBOL${CLEAR}|$AWS_PROFILE)"
+  echo "($IAM_SYMBOL|$AWS_PROFILE)"
 }
