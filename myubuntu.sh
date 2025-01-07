@@ -130,6 +130,7 @@ Architectures: $(dpkg --print-architecture)
 Signed-by: /etc/apt/keyrings/microsoft.gpg" | sudo tee /etc/apt/sources.list.d/azure-cli.sources
 sudo apt-get update &> /dev/null
 sudo apt-get install -y azure-cli &> /dev/null
+sudo az aks install-cli
 
 # az account switcher
 pip install az-account-switcher --break-system-packages
