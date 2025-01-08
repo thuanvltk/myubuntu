@@ -205,7 +205,7 @@ helm completion bash | sudo tee /etc/bash_completion.d/helm &> /dev/null
 ################### set PS1 #######################
 if ! grep 'PS1="\[\e[0;33m\]\$(aws_ps1)\[\e[0m\]\$(kube_ps1)' "$BASHRC" &> /dev/null
 then
-  echo 'PS1="\n\[\e[0;33m\]\$(aws_ps1)\[\e[0m\]\$(kube_ps1)\u:\[\e[0;33m\]\w\[\e[0m\]\\n$ "' >> "$BASHRC"
+  echo 'PS1="\[\e[0;33m\]\$(aws_ps1)\[\e[0m\]\$(kube_ps1)\u:\[\e[0;33m\]\w\[\e[0m\]\$ "' >> "$BASHRC"
   # PS1="\$VAR" To make PS1 dynamically reflect the current value of an environment variable
 fi
 ###################################################
