@@ -37,8 +37,8 @@ aws-switch(){
   if [[ "${PROFILE_ARR[$AWS_PROFILE_NUMBER]}" != "" ]]
   then
     export AWS_PROFILE="${PROFILE_ARR[$AWS_PROFILE_NUMBER]}"
-    sed -i "/^AWS_PROFILE=/d" ~/.bashrc
-    echo "AWS_PROFILE=\"${PROFILE_ARR[$AWS_PROFILE_NUMBER]}\"" >> ~/.bashrc
+    sed -i "/^export AWS_PROFILE=/d" ~/.bashrc
+    echo "export AWS_PROFILE=\"${PROFILE_ARR[$AWS_PROFILE_NUMBER]}\"" >> ~/.bashrc
     echo "Active: $AWS_PROFILE"
   else
     echo "Value not in range! Not changing AWS Profile."
